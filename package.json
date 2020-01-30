@@ -10,8 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^19.0.5",
+    "@hapi/inert": "^6.0.1",
     "@hapi/joi": "^17.1.0",
+    "@hapi/vision": "^6.0.0",
+    "dotenv": "^8.2.0",
+    "hapi-swagger": "^12.1.0",
     "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
     "socket.io": "^2.3.0"
   }
 }
