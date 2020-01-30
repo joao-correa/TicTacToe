@@ -1,0 +1,17 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "api para gerenciar jogo da velha",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "J. Victor Correa",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^19.0.5",
+    "@hapi/joi": "^17.1.0",
+    "jest": "^25.1.0",
+    "socket.io": "^2.3.0"
+  }
+}
