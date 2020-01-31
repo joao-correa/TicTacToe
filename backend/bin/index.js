@@ -7,14 +7,17 @@ const HapiSwagger = require('hapi-swagger');
 const Socket= require('socket.io');
 
 process.on('unhandledRejection', (err) => {
-  console.log(JSON.stringify(err));
+  console.log(err);
   process.exit(1);
 });
 
-exports.Server = async ({ routes = Routes, socket = Socket } = {}) => {
+exports.Server = async ({ socket = Socket } = {}) => {
   
   const server = hapi.server({
-    port: process.env.MODE === 'production' ? (process.env.PORT || 80) : 3000
+    port: process.env.MODE === 'production' ? (process.env.PORT || 80) : 3000,
+    routes: {
+      cors: true
+    }
   });
 
   const swaggerOptions = {
@@ -29,11 +32,7 @@ exports.Server = async ({ routes = Routes, socket = Socket } = {}) => {
     options: swaggerOptions,
   }]);
 
-  const io = Socket(server.listening);
+  const io = Socket(server.listener);
 
-  io.on('connection', (socket) => {
-    console.log( 'alguem logou com sucesso' );
-  });
-
-  return server;
+  return { server, io };
 };
