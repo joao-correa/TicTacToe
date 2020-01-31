@@ -4,7 +4,8 @@
   "description": "api para gerenciar jogo da velha",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node index.js"
   },
   "author": "J. Victor Correa",
   "license": "ISC",

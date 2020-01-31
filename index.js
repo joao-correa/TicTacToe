@@ -7,5 +7,5 @@ require('dotenv').config();
   
   server.start();
 
-  console.log('server started.');
+  console.log('server started at %s', server.info.uri);
 })();

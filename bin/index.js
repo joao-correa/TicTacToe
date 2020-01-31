@@ -4,14 +4,14 @@ const hapi = require('@hapi/hapi');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
-// const Routes = require('./../router/index');
+const Socket= require('socket.io');
 
 process.on('unhandledRejection', (err) => {
   console.log(JSON.stringify(err));
   process.exit(1);
 });
 
-exports.Server = async ({ routes = Routes } = {}) => {
+exports.Server = async ({ routes = Routes, socket = Socket } = {}) => {
   
   const server = hapi.server({
     port: process.env.MODE === 'production' ? (process.env.PORT || 80) : 3000
@@ -29,7 +29,11 @@ exports.Server = async ({ routes = Routes } = {}) => {
     options: swaggerOptions,
   }]);
 
-  // server.route(routes);
+  const io = Socket(server.listening);
+
+  io.on('connection', (socket) => {
+    console.log( 'alguem logou com sucesso' );
+  });
 
   return server;
 };
