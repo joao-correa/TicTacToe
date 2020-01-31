@@ -22,7 +22,7 @@ exports.Server = async ({ socket = Socket } = {}) => {
 
   const swaggerOptions = {
     info: {
-      title: 'Concrete - Node.js Challange',
+      title: 'TicTacTow - Socket',
       version: '1.0.0',
     },
   };

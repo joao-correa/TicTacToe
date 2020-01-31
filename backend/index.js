@@ -1,4 +1,5 @@
 const { Server } = require('./bin/index');
+const matchMaker = require('./controller/match-maker-controller');
 
 require('dotenv').config();
 
@@ -6,9 +7,9 @@ require('dotenv').config();
   const {server , io } = await Server();
   
   io.on('connect', (socket) => {
-    console.log('connected user');
+    console.log('connected user');    
 
-    io.emit('startGame', {
+    socket.emit('start', {
       state : {
         "A1" : { value: "", player: "" },
         "A2" : { value: "", player: "" },
@@ -20,7 +21,8 @@ require('dotenv').config();
         "C2" : { value: "", player: "" },
         "C3" : { value: "", player: "" },
       }
-    });
+    })
+
   });
 
   io.on('disconnect', (socket) => {
