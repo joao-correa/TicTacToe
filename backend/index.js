@@ -8,8 +8,18 @@ require('dotenv').config();
   io.on('connect', (socket) => {
     console.log('connected user');
 
-    socket.on('player_register', (socket) => {
-      console.log("player in inside");  
+    io.emit('startGame', {
+      state : {
+        "A1" : { value: "", player: "" },
+        "A2" : { value: "", player: "" },
+        "A3" : { value: "", player: "" },
+        "B1" : { value: "", player: "" },
+        "B2" : { value: "", player: "" },
+        "B3" : { value: "", player: "" },
+        "C1" : { value: "", player: "" },
+        "C2" : { value: "", player: "" },
+        "C3" : { value: "", player: "" },
+      }
     });
   });
 
