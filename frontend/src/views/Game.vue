@@ -1,29 +1,35 @@
 <template>
-  <div class="container-fluid d-flex justify-content-center align-items-center">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
   
+    <div>
+      <div class="alert alert-danger" v-if="this.alerta.length > 0">
+        {{ alerta }}
+      </div>
+    </div>
+
     <div class="row" v-if="!this.game">
       <div class="col-12">
         <div class="alert alert-success">
-          Wainting a player...
+          Waiting a player...
         </div>
       </div>
     </div>
 
-    <div class="arena d-flex flex-column" v-if="this.game">
+    <div class="arena d-flex flex-column" v-if="this.game && !this.reseting">
       <div class="first-line d-flex flew-row">
-        <div class="arena-field" @click="game.play('A1')"> {{ game.render('A1') }} </div>
-        <div class="arena-field" @click="game.play('A2')"> {{ game.render('A2') }} </div>
-        <div class="arena-field" @click="game.play('A3')"> {{ game.render('A3') }} </div>
+        <div class="arena-field" @click="play('A1')"> <img :src="render('A1')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('A2')"> <img :src="render('A2')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('A3')"> <img :src="render('A3')" alt="" width="50px"> </div>
       </div>
       <div class="first-line d-flex flex-row">
-        <div class="arena-field" @click="game.play('B1')"> {{ game.render('B1') }} </div>
-        <div class="arena-field" @click="game.play('B2')"> {{ game.render('B2') }} </div>
-        <div class="arena-field" @click="game.play('B3')"> {{ game.render('B3') }} </div>
+        <div class="arena-field" @click="play('B1')"> <img :src="render('B1')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('B2')"> <img :src="render('B2')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('B3')"> <img :src="render('B3')" alt="" width="50px"> </div>
       </div>
       <div class="first-line d-flex flex-row">
-        <div class="arena-field" @click="game.play('C1')"> {{ game.render('C1') }} </div>
-        <div class="arena-field" @click="game.play('C2')"> {{ game.render('C2') }} </div>
-        <div class="arena-field" @click="game.play('C3')"> {{ game.render('C3') }} </div>
+        <div class="arena-field" @click="play('C1')"> <img :src="render('C1')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('C2')"> <img :src="render('C2')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('C3')"> <img :src="render('C3')" alt="" width="50px"> </div>
       </div>
     </div>
 
@@ -32,70 +38,60 @@
 
 <script>
   
+  import X from "./../assets/x.png";
+  import O from "./../assets/o.png";
+
   export default {
     name: 'Game',
     data(){
       return {  
         name: "",
-        game: null
+        game: null,
+        alerta: "",
+        reseting: false,
       }
     },
     methods : {
       sendMessage(){
-        this.$socket.emit('player_register', { name: this.name });
+        this.$socket.emit('subscribe', { name: this.name });
+      },
+      play(position){
+        this.$socket.emit('play', { position, name: this.name });
+      },
+      render(position){
+        console.log(X, O);
+        
+        const value = this.game && this.game.state && this.game.state[position].value;
+        return value == "X" ? X : value == "O" ? O : "";
       },
     },
     sockets: {
       connect() {
-        console.log('connected with success.');     
-      },
-      disconnect() {
-        console.log('disconnected with success.');
+        this.$socket.emit('subscribe', { name: this.name });
       },
       startGame(data) {
-        console.log(data);
-        this.game = new Game({
-          state : {
-            "A1" : { value: "", player: "" },
-            "A2" : { value: "", player: "" },
-            "A3" : { value: "", player: "" },
-            "B1" : { value: "", player: "" },
-            "B2" : { value: "", player: "" },
-            "B3" : { value: "", player: "" },
-            "C1" : { value: "", player: "" },
-            "C2" : { value: "", player: "" },
-            "C3" : { value: "", player: "" },
-          }
-        });
+        this.game = data;
       },
+      cantPlay(position){
+        this.alerta = `Can't play at ${position}`;
+      },
+      updateGame(data){
+        this.game = data;
+      },
+      resultado( mensagem ){
+        this.alerta = mensagem;
+      },
+      reset(data){
+        this.reseting = true;
+        this.game = data;
+
+        setTimeout(()=> {
+          this.reseting = false;
+        }, 1000);
+      }
     },
     created(){
       this.name =  this.$route && this.$route.params && this.$route.params.name;
-    }
-  }
-
-  class Game {
-    constructor({state = {}, oponente = {}, app = {}} =  {}){
-      this.position = { ...state };
-      this.oponente = { ...oponente };
-      this.app = app;
-    }
-
-    play(pos){
-
-    }
-    
-    canPlayHere(pos){
-      const field = this.position[pos];
-
-      if( field.value == "" )
-        return true;
-
-      return false
-    }
-
-    render(position = ""){
-
     }
   }
 
@@ -110,14 +106,16 @@
   }
 
   .arena .arena-field {
-    collapse: collapse;
     border-collapse: collapse;
-    border: .4px solid #000;
-    width: 75px;
-    height: 75px;
+    border: .4px solid #00f;
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   .devb {
