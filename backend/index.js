@@ -4,24 +4,36 @@ const matchMaker = require('./business/match-maker');
 require('dotenv').config();
 
 (async ()=> {
-  const {server , io } = await Server();
 
-  const maker = matchMaker();
+  try {
   
-  io.on('connect', (socket) => {
-    console.log('connected user');    
+    const {server , io } = await Server();
+
+    const maker = matchMaker();
     
-    maker.subscribe( socket );
+    io.on('connect', (socket) => {
+      console.log('connected user', socket.id);    
+      
+      socket.on('subscribe', function( data ){
+        socket.userName = data;
+        console.log( 'sub ->', data );
+        maker.subscribe( socket );
+      });
+  
+    });
+  
+    io.on('disconnect', (socket) => {
+      console.log("player is disconnected");
+    });
+  
+    server.start();
+  
+    console.log('server started at %s', server.info.uri);
 
-  });
-
-  io.on('disconnect', (socket) => {
-    console.log("player is disconnected");
-  });
-
-  server.start();
-
-  console.log('server started at %s', server.info.uri);
+  } catch (error) {
+    console.log(error); 
+  }
+  
 })();
 
 // socket.emit('start', {
