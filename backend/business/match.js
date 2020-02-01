@@ -1,6 +1,6 @@
 
 module.exports = () => {
-  return {
-
+  return class Match {
+    
   }
 }

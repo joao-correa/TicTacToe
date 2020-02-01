@@ -1,27 +1,17 @@
 const { Server } = require('./bin/index');
-const matchMaker = require('./controller/match-maker-controller');
+const matchMaker = require('./business/match-maker');
 
 require('dotenv').config();
 
 (async ()=> {
   const {server , io } = await Server();
+
+  const maker = matchMaker();
   
   io.on('connect', (socket) => {
     console.log('connected user');    
-
-    socket.emit('start', {
-      state : {
-        "A1" : { value: "", player: "" },
-        "A2" : { value: "", player: "" },
-        "A3" : { value: "", player: "" },
-        "B1" : { value: "", player: "" },
-        "B2" : { value: "", player: "" },
-        "B3" : { value: "", player: "" },
-        "C1" : { value: "", player: "" },
-        "C2" : { value: "", player: "" },
-        "C3" : { value: "", player: "" },
-      }
-    })
+    
+    maker.subscribe( socket );
 
   });
 
@@ -33,3 +23,17 @@ require('dotenv').config();
 
   console.log('server started at %s', server.info.uri);
 })();
+
+// socket.emit('start', {
+//   state : {
+//     "A1" : { value: "", player: "" },
+//     "A2" : { value: "", player: "" },
+//     "A3" : { value: "", player: "" },
+//     "B1" : { value: "", player: "" },
+//     "B2" : { value: "", player: "" },
+//     "B3" : { value: "", player: "" },
+//     "C1" : { value: "", player: "" },
+//     "C2" : { value: "", player: "" },
+//     "C3" : { value: "", player: "" },
+//   }
+// })
