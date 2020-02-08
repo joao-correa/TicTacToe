@@ -4,11 +4,8 @@ const matchMaker = require('./business/match-maker');
 require('dotenv').config();
 
 (async ()=> {
-
   try {
-  
     const {server , io } = await Server();
-
     const maker = matchMaker();
     
     io.on('connect', (socket) => {

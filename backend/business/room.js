@@ -1,7 +1,6 @@
 const match = require('./match');
 
 module.exports = ({ Match = match() } = {}) => {
-
   const listRoom = [];
 
   const winner = (state, mark) => {

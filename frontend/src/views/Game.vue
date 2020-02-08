@@ -59,10 +59,7 @@
         this.$socket.emit('play', { position, name: this.name });
       },
       render(position){
-        console.log(X, O);
-        
-        const value = this.game && this.game.state && this.game.state[position].value;
-        return value == "X" ? X : value == "O" ? O : "";
+        return this.game && this.game.state && this.game.state[position].value;
       },
     },
     sockets: {

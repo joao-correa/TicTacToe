@@ -4,21 +4,14 @@ module.exports = ({ Room = room() } = {}) => {
   let players = [];
   let rooms = [];
   
-  // const make = (player1, player2) =>  new Game(player1.id, player2.id);
-
-  // const Game = function(player1, player2){
-  //   this.player1 = player1;
-  //   this.player2 = player2;
-  //   this.state = {
- 
-  //   };
-  //   this.winner = null; 
-  // }
-  
   return {
     subscribe(observer){
       if(players.find( p => p.userName == observer.userName ))
         return;
+      
+      const room = rooms.find( room => rooms.socketPlayer1.userName == observer.userName || rooms.socketPlayer2.userName == observer.userName );
+      if(room)
+        return observer.emit("startGame", room.game);
 
       players.push(observer);
 
@@ -32,7 +25,6 @@ module.exports = ({ Room = room() } = {}) => {
         player1.emit('startGame', room.game);
         player2.emit('startGame', room.game);
       }
-     
     },
     unsubscribe(observer){
       players = players.filter( o => o != observer );
