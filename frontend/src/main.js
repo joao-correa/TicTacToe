@@ -2,15 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import VueSocketIO from 'vue-socket.io';
-import "dotenv";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.config.productionTip = false;
 
+console.log(process.env.VUE_APP_API_HOST);
+
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: process.env.API_HOST
+  connection: process.env.VUE_APP_API_HOST
 }));
 
 new Vue({

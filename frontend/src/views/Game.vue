@@ -2,8 +2,11 @@
   <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
   
     <div>
-      <div class="alert alert-danger" v-if="this.alerta.length > 0">
-        {{ alerta }}
+      <div class="alert alert-danger" v-if="this.alertaErro.length > 0">
+        {{ alertaErro }}
+      </div>
+      <div class="alert alert-success" v-if="this.alertaSucesso.length > 0">
+        {{ alertaSucesso }}
       </div>
     </div>
 
@@ -17,19 +20,19 @@
 
     <div class="arena d-flex flex-column" v-if="this.game && !this.reseting">
       <div class="first-line d-flex flew-row">
-        <div class="arena-field" @click="play('A1')"> <img :src="render('A1')" alt="" width="50px"> </div>
-        <div class="arena-field" @click="play('A2')"> <img :src="render('A2')" alt="" width="50px"> </div>
-        <div class="arena-field" @click="play('A3')"> <img :src="render('A3')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('A1')"> {{ render('A1') }} </div>
+        <div class="arena-field" @click="play('A2')"> {{ render('A2') }} </div>
+        <div class="arena-field" @click="play('A3')"> {{ render('A3') }} </div>
       </div>
       <div class="first-line d-flex flex-row">
-        <div class="arena-field" @click="play('B1')"> <img :src="render('B1')" alt="" width="50px"> </div>
-        <div class="arena-field" @click="play('B2')"> <img :src="render('B2')" alt="" width="50px"> </div>
-        <div class="arena-field" @click="play('B3')"> <img :src="render('B3')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('B1')"> {{ render('B1') }} </div>
+        <div class="arena-field" @click="play('B2')"> {{ render('B2') }} </div>
+        <div class="arena-field" @click="play('B3')"> {{ render('B3') }} </div>
       </div>
       <div class="first-line d-flex flex-row">
-        <div class="arena-field" @click="play('C1')"> <img :src="render('C1')" alt="" width="50px"> </div>
-        <div class="arena-field" @click="play('C2')"> <img :src="render('C2')" alt="" width="50px"> </div>
-        <div class="arena-field" @click="play('C3')"> <img :src="render('C3')" alt="" width="50px"> </div>
+        <div class="arena-field" @click="play('C1')"> {{ render('C1') }} </div>
+        <div class="arena-field" @click="play('C2')"> {{ render('C2') }} </div>
+        <div class="arena-field" @click="play('C3')"> {{ render('C3') }} </div>
       </div>
     </div>
 
@@ -37,17 +40,14 @@
 </template>
 
 <script>
-  
-  import X from "./../assets/x.png";
-  import O from "./../assets/o.png";
-
   export default {
     name: 'Game',
     data(){
       return {  
         name: "",
         game: null,
-        alerta: "",
+        alertaSucesso: "",       
+        alertaErro: "",       
         reseting: false,
       }
     },
@@ -63,32 +63,24 @@
       },
     },
     sockets: {
-      connect() {
-        this.$socket.emit('subscribe', { name: this.name });
-      },
       startGame(data) {
         this.game = data;
       },
-      cantPlay(position){
-        this.alerta = `Can't play at ${position}`;
+      cantPlay(message){
+        this.alertaErro = message;
       },
       updateGame(data){
         this.game = data;
+        this.alertaErro = "";
+        this.alertaSucesso = "";
       },
-      resultado( mensagem ){
-        this.alerta = mensagem;
+      finishMatch( resultado ){
+        this.alertaSucesso = `the player ${resultado.userName} win the game...`;
       },
-      reset(data){
-        this.reseting = true;
-        this.game = data;
-
-        setTimeout(()=> {
-          this.reseting = false;
-        }, 1000);
-      }
     },
     created(){
       this.name =  this.$route && this.$route.params && this.$route.params.name;
+      this.sendMessage();
     }
   }
 

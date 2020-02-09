@@ -8,10 +8,6 @@ module.exports = ({ Room = room() } = {}) => {
     subscribe(observer){
       if(players.find( p => p.userName == observer.userName ))
         return;
-      
-      const room = rooms.find( room => rooms.socketPlayer1.userName == observer.userName || rooms.socketPlayer2.userName == observer.userName );
-      if(room)
-        return observer.emit("startGame", room.game);
 
       players.push(observer);
 
@@ -22,8 +18,8 @@ module.exports = ({ Room = room() } = {}) => {
 
         rooms.push(room);
 
-        player1.emit('startGame', room.game);
-        player2.emit('startGame', room.game);
+        player1.emit('startGame', room.game.state);
+        player2.emit('startGame', room.game.state);
       }
     },
     unsubscribe(observer){

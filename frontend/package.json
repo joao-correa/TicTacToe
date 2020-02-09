@@ -9,7 +9,6 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "core-js": "^3.4.4",
-    "dotenv": "^8.2.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "socket.io": "^2.3.0",
