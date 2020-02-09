@@ -1,10 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 const hapi = require('@hapi/hapi');
-const Inert = require('@hapi/inert');
-const Vision = require('@hapi/vision');
-const HapiSwagger = require('hapi-swagger');
-const socket= require('socket.io');
+const socket = require('socket.io');
 
 process.on('unhandledRejection', (err) => {
   console.log(err);
@@ -19,19 +16,7 @@ exports.Server = async () => {
     }
   });
 
-  const swaggerOptions = {
-    info: {
-      title: 'TicTacTow - Socket',
-      version: '1.0.0',
-    },
-  };
-
-  await server.register([Inert, Vision, {
-    plugin: HapiSwagger,
-    options: swaggerOptions,
-  }]);
-
-  const io = Socket(server.listener);
+  const io = socket(server.listener);
 
   return { server, io };
 };
