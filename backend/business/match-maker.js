@@ -1,6 +1,6 @@
 const room = require('./room');
 
-module.exports = ({ Room = room() } = {}) => {
+module.exports = (Room = room()) => {
   let players = [];
   let rooms = [];
   

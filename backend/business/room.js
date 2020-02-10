@@ -4,9 +4,6 @@ module.exports = ({ Match = match() } = {}) => {
 
   const play = (player, oponente, game) => {
     return (position) => {
-      console.log(`play called by -> ${player.userName}`);
-
-      const gamePlayer = game.player1.userName == player.userName ? game.player1 : game.player2;
       const retorno = game.play(position);
 
       if (!retorno.state) {
@@ -16,28 +13,24 @@ module.exports = ({ Match = match() } = {}) => {
       player.emit("updateGame", game);
       oponente.emit("updateGame", game);
 
-      const winner = game.verifyWinner(gamePlayer);
+      const winner = game.verifyWinner();
 
       if (winner) {
+        game.restart();
+
+        player.emit("updateGame", game);
+        oponente.emit("updateGame", game);
+
         player.emit("finishMatch", winner);
         oponente.emit("finishMatch", winner);
-
-        setTimeout(() => {
-          game.restart();
-          player.emit("updateGame", game);
-          oponente.emit("updateGame", game);
-        }, 5000);
 
         return;
       } 
 
-      if (game.remainerPlaces == 0) {
+      if (game.remainderPlaces == 0) {
         game.restart();
-
-        setTimeout(() =>  {
-          player.emit("updateGame", game);
-          oponente.emit("updateGame", game);
-        }, 2000);
+        player.emit("updateGame", game);
+        oponente.emit("updateGame", game);
       }
     }
   }

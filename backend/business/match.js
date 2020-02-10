@@ -1,8 +1,8 @@
 
 module.exports = () => {
   return class Match {
-    constructor({ player1, player2 }){
-      this.remainerPlaces = 9;
+    constructor({ player1, player2, luckyFactor = ((Math.random() * 50)) }){
+      this.remainderPlaces = 9;
       this.player1 = {
         id: player1.id,
         userName: player1.userName,
@@ -16,7 +16,7 @@ module.exports = () => {
       this.player1.mark = "X";
       this.player2.mark = "O";
 
-      this.currentPlayer = (Math.random() * 50) & 1 ? this.player1 : this.player2;
+      this.currentPlayer = luckyFactor & 1 ? this.player1 : this.player2;
 
       this.state = {
         "A1" : { value: "", player: "" },
@@ -46,7 +46,7 @@ module.exports = () => {
       };
 
       this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
-      this.remainerPlaces--;
+      this.remainderPlaces--;
       return {
         state: true,
       };
@@ -65,9 +65,6 @@ module.exports = () => {
     }
 
     verifyPlay (position) {
-      if(!position)
-        throw new Error("position is required");
-
       if(this.state[position].value == "")
         return { 
           state: true,
@@ -116,7 +113,7 @@ module.exports = () => {
     }
 
     restart () {
-      this.remainerPlaces = 9;
+      this.remainderPlaces = 9;
       this.state = {
         "A1" : { value: "", player: "" },
         "A2" : { value: "", player: "" },
