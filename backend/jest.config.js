@@ -185,4 +185,12 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+  "reporters": [
+    [
+      "jest-nyancat-reporter",
+      {
+        "suppressErrorReporter": false
+      }
+    ]
+  ]
 };
