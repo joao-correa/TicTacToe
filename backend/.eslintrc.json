@@ -8,6 +8,7 @@
     "globals": {
         "process": true,
         "console": true,
+        "setTimeout": true,
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },

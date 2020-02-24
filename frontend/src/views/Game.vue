@@ -63,19 +63,19 @@
       },
     },
     sockets: {
-      startGame(data) {
-        this.game = data;
+      cantPlay(data){
+        this.alertaErro = data.message;
       },
-      cantPlay(message){
-        this.alertaErro = message;
-      },
-      updateGame(data){
+      update(data){
         this.game = data;
         this.alertaErro = "";
         this.alertaSucesso = "";
       },
-      finishMatch( resultado ){
-        this.alertaSucesso = `the player ${resultado.userName} win the game...`;
+      winner (data) {
+        this.alertaSucesso = data.message;
+      },
+      lose (data) {
+        this.alertaErro = data.message;
       },
     },
     created(){

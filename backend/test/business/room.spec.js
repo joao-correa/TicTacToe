@@ -1,10 +1,10 @@
 
-const Room = require("./../../business/room");
+const Room = require('./../../business/room');
 
-describe("funcionamento da room", () => {
+describe('funcionamento da room', () => {
 
 	const p1 = {
-		userName: "p1",
+		userName: 'p1',
 		on: jest.fn(function (type, fn) {
 			this.play = fn;
 		}),
@@ -12,7 +12,7 @@ describe("funcionamento da room", () => {
 	};
 
 	const p2 = {
-		userName: "p2",
+		userName: 'p2',
 		on: jest.fn(function (type, fn) {
 			this.play = fn;
 		}),
@@ -28,11 +28,11 @@ describe("funcionamento da room", () => {
 		this.play = jest.fn();
 		this.verifyWinner = jest.fn();
 		this.restart = jest.fn();
-	}
+	};
 
 	const room = new (Room({ Match: match }))(p1, p2);
 
-	it("constructor room", () => {
+	it('constructor room', () => {
 		expect(room).toBeDefined();
 		expect(room.game).toBeDefined();
 		expect(room.socketPlayer1).toEqual(p1);
@@ -40,16 +40,16 @@ describe("funcionamento da room", () => {
 		expect(p1.play).toBeDefined();
 	});
 
-	it("jogada invalida", () => {
+	it('jogada invalida', () => {
 		const p1 = {
-			userName: "p1",
+			userName: 'p1',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
 			emit: jest.fn(),
 		};
 		const p2 = {
-			userName: "p2",
+			userName: 'p2',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
@@ -61,28 +61,28 @@ describe("funcionamento da room", () => {
 			};
 			this.player1 = p1;
 			this.player2 = p2;
-			this.play = jest.fn(() => ({ state: false, message: "teste" }));
+			this.play = jest.fn(() => ({ state: false, message: 'teste' }));
 			this.verifyWinner = jest.fn();
 			this.restart = jest.fn();
 		};
 		const room = new (Room({ Match: match }))(p1, p2);
 
-		p1.play("A1");
+		p1.play('A1');
 
 		expect(p1.play).toBeDefined();
-		expect(p1.emit).toHaveBeenCalledWith("cantPlay", "teste");
-	})
+		expect(p1.emit).toHaveBeenCalledWith('cantPlay', 'teste');
+	});
 
-	it("jogada correta", () => {
+	it('jogada correta', () => {
 		const p1 = {
-			userName: "p1",
+			userName: 'p1',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
 			emit: jest.fn(),
 		};
 		const p2 = {
-			userName: "p2",
+			userName: 'p2',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
@@ -100,22 +100,22 @@ describe("funcionamento da room", () => {
 		};
 		const room = new (Room({ Match: match }))(p1, p2);
 
-		p1.play("A1");
+		p1.play('A1');
 
-		expect(p1.emit).toHaveBeenCalledWith("updateGame", room.game);
-		expect(p2.emit).toHaveBeenCalledWith("updateGame", room.game);
-	})
+		expect(p1.emit).toHaveBeenCalledWith('updateGame', room.game);
+		expect(p2.emit).toHaveBeenCalledWith('updateGame', room.game);
+	});
 
-	it("jogada correta - final", () => {
+	it('jogada correta - final', () => {
 		const p1 = {
-			userName: "p1",
+			userName: 'p1',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
 			emit: jest.fn(),
 		};
 		const p2 = {
-			userName: "p2",
+			userName: 'p2',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
@@ -133,28 +133,28 @@ describe("funcionamento da room", () => {
 		};
 		const room = new (Room({ Match: match }))(p1, p2);
 
-		p1.play("A1");
+		p1.play('A1');
 
-		expect(p1.emit).toHaveBeenCalledWith("updateGame", room.game);
-		expect(p2.emit).toHaveBeenCalledWith("updateGame", room.game);
+		expect(p1.emit).toHaveBeenCalledWith('updateGame', room.game);
+		expect(p2.emit).toHaveBeenCalledWith('updateGame', room.game);
 
-		expect(p1.emit).toHaveBeenCalledWith("updateGame", room.game);
-		expect(p2.emit).toHaveBeenCalledWith("updateGame", room.game);
+		expect(p1.emit).toHaveBeenCalledWith('updateGame', room.game);
+		expect(p2.emit).toHaveBeenCalledWith('updateGame', room.game);
 
-		expect(p1.emit).toHaveBeenCalledWith("finishMatch", true);
-		expect(p2.emit).toHaveBeenCalledWith("finishMatch", true);
-	})
+		expect(p1.emit).toHaveBeenCalledWith('finishMatch', true);
+		expect(p2.emit).toHaveBeenCalledWith('finishMatch', true);
+	});
 
-	it("jogada correta - velha", () => {
+	it('jogada correta - velha', () => {
 		const p1 = {
-			userName: "p1",
+			userName: 'p1',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
 			emit: jest.fn(),
 		};
 		const p2 = {
-			userName: "p2",
+			userName: 'p2',
 			on: jest.fn(function (type, fn) {
 				this.play = fn;
 			}),
@@ -171,13 +171,13 @@ describe("funcionamento da room", () => {
 		};
 		const room = new (Room({ Match: match }))(p1, p2);
 
-		p1.play("A1");
+		p1.play('A1');
 		
 		expect(room.game.restart).toHaveBeenCalled();
-		expect(p1.emit).toHaveBeenCalledWith("updateGame", room.game);
-		expect(p2.emit).toHaveBeenCalledWith("updateGame", room.game);
+		expect(p1.emit).toHaveBeenCalledWith('updateGame', room.game);
+		expect(p2.emit).toHaveBeenCalledWith('updateGame', room.game);
 
-	})
+	});
 
 
 });

@@ -4,7 +4,7 @@
       <div class="form-group row">
         <label for="txtName" class="col-12 col-sm-2 col-form-label">Nome</label>
         <div class="col-12 col-sm-10">
-          <input type="text" class="form-control" v-model='name' id="txtName" placeholder="">
+          <input type="text" class="form-control" v-model='name'  id="txtName" placeholder="Your Name">
         </div>
       </div>
       <button @click="avancar()" class="btn btn-primary mb-2">Avançar</button>
@@ -18,7 +18,7 @@
     name: 'ChoiceName',
     data(){
       return {  
-        name: "Your Name",
+        name: "",
       }
     },
     methods : {
@@ -30,9 +30,6 @@
           }
         });
       }
-    },
-    created(){
-      console.log('component created');
     }
   }
 
