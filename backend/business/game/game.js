@@ -97,7 +97,7 @@ module.exports = {
 		for (const position of positions) {
 			if(state[position].value === ''){
 				endGame = false;
-				return;
+				break;
 			}
 		}
 		return endGame;

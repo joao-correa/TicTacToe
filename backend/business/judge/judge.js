@@ -54,43 +54,36 @@ const judgeWrapper = ({
 		if(verifiedWinner && verifiedWinner.winner){
 			resetGame = true;	
 
-			if (verifiedWinner.player == player){
-				player.emit('winner', {
-					message: 'You win.'
-				});
+			player.emit('winner', {
+				message: 'You win.'
+			});
 
-				opponent.emit('lose', {
-					message: 'You lose.'
-				});
-			} else {
-				opponent.emit('winner', {
-					message: 'You win.'
-				});
-
-				player.emit('lose', {
-					message: 'You lose.'
-				});
-			}			
+			opponent.emit('lose', {
+				message: 'You lose.'
+			});
 		} else {
 			const verifiedEndGame = rules.verifyEndGame({
 				state,
 			});
-	
+
 			if (verifiedEndGame)
 				resetGame = true;
 		}
 
 		if (resetGame) {
-			setTimeout(() => {
-				rules.gameReset({ state });
-
-				player.emit('update', {
-					state
-				});
-				opponent.emit('update', {
-					state
-				});
-			}, 5000);
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					rules.gameReset({ state });
+	
+					player.emit('update', {
+						state
+					});
+					opponent.emit('update', {
+						state
+					});
+					resolve('resolved');
+				}, 5000);
+			});
 		}
 	};
 
@@ -106,12 +99,13 @@ const judgeWrapper = ({
 		player1.emit('update', {
 			state
 		});
+
 		player2.emit('update', {
 			state
 		});
 
 		player1.on('play', (data) => {
-			play({ 
+			return play({ 
 				player: player1,
 				opponent: player2,
 				state,
@@ -121,7 +115,7 @@ const judgeWrapper = ({
 		});
 
 		player2.on('play', (data) => {
-			play({ 
+			return play({ 
 				player: player2,
 				opponent: player1,
 				state,
