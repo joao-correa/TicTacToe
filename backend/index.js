@@ -1,17 +1,19 @@
 require('dotenv').config();
 const { Server } = require('./bin/index');
-const matchMaker = require('./business/match-maker');
+const matchMaker = require('./business/matchMaker');
+
+process.on('uncaughtException', (error) => {
+	console.log('error -->', error);
+});
 
 (async () => {
 	try {
 		const { server, io } = await Server();
-		const maker = matchMaker();
 
 		io.on('connect', (socket) => {
 			socket.on('subscribe', function (data) {
 				socket.userName = data.name;
-				console.log('sub ->', data);
-				maker.subscribe(socket);
+				matchMaker.subscriber(socket);
 			});
 		});
 
