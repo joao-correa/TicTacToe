@@ -40,6 +40,7 @@
 </template>
 
 <script>
+
   export default {
     name: 'Game',
     data(){
@@ -107,8 +108,4 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  .devb {
-    border: 1px solid #000;
-  }
- 
 </style>

@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Game from '../views/Game.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import Game from '../views/Game.vue';
+import Room from '../views/Room.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -15,11 +16,16 @@ const routes = [
     path: '/game/:name',
     name: 'game',
     component: Game
+  },
+  {
+    path: '/room/:name',
+    name: 'room',
+    component: Room
   }
-]
+];
 
 const router = new VueRouter({
   routes
-})
+});
 
-export default router
+export default router;

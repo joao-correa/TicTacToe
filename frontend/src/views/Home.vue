@@ -1,14 +1,18 @@
 <template>
-  <div class="container-fluid d-flex align-items-center justify-content-center">
-    <form class="w-50">
-      <div class="form-group row">
-        <label for="txtName" class="col-12 col-sm-2 col-form-label">Nome</label>
-        <div class="col-12 col-sm-10">
-          <input type="text" class="form-control" v-model='name'  id="txtName" placeholder="Your Name">
-        </div>
+  <div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="row w-100">
+      <div class="jumbotron col-12 col-md-6 offset-md-3">
+        <form>
+          <div class="form-group row">
+            <label for="txtName" class="col-12 col-sm-2 col-form-label">Name</label>
+            <div class="col-12 col-sm-10">
+              <input type="text" class="form-control" v-model='name'  id="txtName" placeholder="Your name">
+            </div>
+          </div>
+          <button @click="next()" class="btn btn-primary mb-2">Next</button>
+        </form>
       </div>
-      <button @click="avancar()" class="btn btn-primary mb-2">Avançar</button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -22,7 +26,7 @@
       }
     },
     methods : {
-      avancar() {
+      next() {
         this.$router.push({
           name: "game",
           params : {
@@ -38,9 +42,27 @@
 <style scoped lang="scss">
 
   .container-fluid {
-    background-color: rgba(240, 240, 240, .9);
+    color: #fff;
+    background-color: rgba(31, 31, 31, .9);
     width: 100vw;
     height: 100vh;
+  }
+
+  .jumbotron {
+    background-color: rgba(41, 41, 41, .9);  
+    box-shadow: #fff 0px 5px 10px -10px;
+  }
+
+  input {
+    background-color:rgba(31, 31, 31, .9);
+    border: none;
+    border-bottom: .5px solid rgba(200, 200, 200, .9);
+  }
+
+  input:focus {
+    color: #fff;
+    background-color:rgba(41, 41, 41, .9);
+    transition: .5s;
   }
 
 </style>
