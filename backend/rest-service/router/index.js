@@ -1,4 +1,4 @@
-const controllers = require('../controller');
+const { register } = require('../handler');
 const Joi = require('@hapi/joi');
 
 module.exports = [
@@ -12,7 +12,7 @@ module.exports = [
 			handler: async (request, h) => {
 				const onSuccess = r => h.response(r.data).code(r.code);
 				const onError = r => h.response(r.data).code(r.code);
-				return await controllers.auth.authenticate({ request, onSuccess, onError });
+				return await register.registerPlayer({ request, onSuccess, onError });
 			},
 			validate: {
 				payload: Joi.object({

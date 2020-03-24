@@ -1,5 +1,5 @@
 
-const gameRules = require('./../../../business/game');
+const gameRules = require('./../../../socket-service/game');
 
 describe('test - rules of the game.', () => {
 	it('gameState - should return a object with the game`s initial state.', () => {

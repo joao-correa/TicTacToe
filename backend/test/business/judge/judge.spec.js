@@ -1,5 +1,5 @@
 
-const judge = require('./../../../business/judge');
+const judge = require('./../../../socket-service/judge');
 
 describe('judge test', () => {
 	it('startup game' , () => {
