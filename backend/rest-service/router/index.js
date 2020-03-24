@@ -4,7 +4,7 @@ const Joi = require('@hapi/joi');
 module.exports = [
 	{
 		method: 'POST',
-		path: 'player/register',
+		path: '/player/register',
 		options: {
 			tags: ['api'],
 			description: 'Register or recovery user data.',
