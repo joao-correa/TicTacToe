@@ -4,14 +4,11 @@ const {
 
 module.exports = (dbPromise) => {
 	return {
-		async update({ name, password, imageBuffer }) {
+		async update({ name, password }) {
 			const toset = {
 				name, 
 				password
 			};
-
-			if (imageBuffer)
-				toset.imageBuffer = imageBuffer;
 
 			const db = await dbPromise;
 			const user = await db

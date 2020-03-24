@@ -95,13 +95,25 @@ const judgeWrapper = ({
 
 		player1.mark = 'X';
 		player2.mark = 'O';
-
-		player1.emit('update', {
-			state
+		
+		player1.emit('start', {
+			state: true,
 		});
 
-		player2.emit('update', {
-			state
+		player2.emit('start', {
+			state: true,
+		});
+	
+		player1.on('start', () => {
+			player1.emit('update', {
+				state
+			});
+		});
+
+		player2.on('start', () => {
+			player2.emit('update', {
+				state
+			});
 		});
 
 		player1.on('play', (data) => {

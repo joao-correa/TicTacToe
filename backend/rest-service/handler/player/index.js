@@ -16,12 +16,11 @@ module.exports = {
 					user: {
 						_id: mongoResponse._id,
 						name: mongoResponse.name,
-						imageBuffer: mongoResponse.imageBuffer,
 					},
 					stats: {
-						victory: null,
-						loses: null,
-						ties: null,
+						victory: mongoResponse.victory || null,
+						defeats: mongoResponse.defeats || null,
+						ties: mongoResponse.ties || null,
 					},
 				},
 				code: 200

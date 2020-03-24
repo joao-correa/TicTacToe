@@ -18,7 +18,6 @@ module.exports = [
 				payload: Joi.object({
 					name: Joi.string().required().description('name'),
 					password: Joi.string().required().description('password'),
-					imageBuffer: Joi.array().optional().description('image buffer'),
 				}),
 			}
 		},
