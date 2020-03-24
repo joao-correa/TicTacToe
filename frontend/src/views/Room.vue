@@ -4,7 +4,7 @@
 		<div class="row w-100">
 			<div class="col-12 col-md-4 offset-md-4 d-flex flex-column align-items-center bottom-line">
 				<img class="player-image" src=""/>
-				<div class="player-name mt-2"> Joaozinho </div>
+				<div class="player-name mt-2"> {{ profile.name || '' }} </div>
 			</div>
 		</div>
 		
@@ -13,19 +13,19 @@
 				<div class="wins">
 					<div class="row">
 						<div class="col-6 text-left">Victory</div>
-						<div class="col-6 text-right">4</div>
+						<div class="col-6 text-right"> {{ stats.victory || 0 }} </div>
 					</div>
 				</div>
 				<div class="defeats">
 					<div class="row">
 						<div class="col-6 text-left">Defeats</div>
-						<div class="col-6 text-right">3</div>
+						<div class="col-6 text-right"> {{ stats.defeats || 0 }} </div>
 					</div>
 				</div>
 				<div class="ties">
 					<div class="row">
 						<div class="col-6 text-left">Ties</div>
-						<div class="col-6 text-right">3</div>
+						<div class="col-6 text-right"> {{ stats.ties || 0 }} </div>
 					</div>
 				</div>
 			</div>
@@ -33,7 +33,9 @@
 
 		<div class="row mt-4 w-100">
 			<div class="col-12 col-md-4 offset-md-4 text-center">
-				Waiting a player
+				{{
+					state || ''
+				}}
 			</div>
 		</div>
 
@@ -48,7 +50,7 @@
       return {  
 				profile: {},
 				stats: {},
-				state: {},
+				state: '',
       }
     },
     methods : {
@@ -58,7 +60,35 @@
 			},
 			getState () {
 			},
-    }
+		},
+		sockets: {
+      start(data){
+        if(data){
+          this.$router.push({
+						name: 'game',
+						params: {
+							name: this.profile.name,	
+						}
+          });
+        }
+      },
+    },
+		created(){
+			const local = localStorage.getItem('player');
+			const {
+				user,
+				stats
+			} = JSON.parse(local || '{}');
+
+			this.profile = user;
+			this.stats = stats;
+			this.state = 'Waiting a player';
+
+			setTimeout(() => {
+				this.$socket.emit('subscribe', { name: this.profile.name });
+			}, 1000);
+			
+		}
   }
 
 </script>

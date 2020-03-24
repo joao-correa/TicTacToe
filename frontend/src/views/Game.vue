@@ -53,9 +53,6 @@
       }
     },
     methods : {
-      sendMessage(){
-        this.$socket.emit('subscribe', { name: this.name });
-      },
       play(position){
         this.$socket.emit('play', { position, name: this.name });
       },
@@ -80,8 +77,7 @@
       },
     },
     created(){
-      this.name =  this.$route && this.$route.params && this.$route.params.name;
-      this.sendMessage();
+      this.$socket.emit('start');      
     }
   }
 
