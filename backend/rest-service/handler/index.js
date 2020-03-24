@@ -1,5 +1,5 @@
-const register = require('./register');
+const player = require('./player');
 
 module.exports = {
-	register,
+	player,
 };
