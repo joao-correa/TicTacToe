@@ -1,5 +1,5 @@
 
-const matchMakerWrapper = require('./../../../socket-service/matchMaker/matchMaker');
+const matchMakerWrapper = require('./../../../business/matchMaker/matchMaker');
 
 describe('matchMaker test', () => {
 	it ('shout return a object with a subscription property', () => {
@@ -15,7 +15,7 @@ describe('matchMaker test', () => {
 	});
 
 	it ('shout return a object with a subscription property - index test', () => {
-		const matchMaker = require('./../../../socket-service/matchMaker');
+		const matchMaker = require('./../../../business/matchMaker');
 		expect(matchMaker).toBeDefined();
 		expect(matchMaker.subscriber).toBeDefined();
 	});

@@ -1,0 +1,9 @@
+ - Criar feature para autenticar e salvar players no mongo (nome, senha e foto)
+ - Criar feature para recuperar stats (vitorias, derrotas e empates)
+ - Criar feature para atualizar stats (vitorias, derrotas e empates)
+ - Criar feature de placar na tela do jogo
+ - Criar feature para retornar informacoes do oponente na tela do game
+ - Criar feature de tempo para cada jogada nao durar mais que 1min 
+ - Atualizar UX do tabuleiro
+
+ 

@@ -1,13 +1,13 @@
 {
-  "name": "tic-tac-toe",
+  "name": "rest-service",
   "version": "1.0.0",
-  "description": "api para gerenciar jogo da velha",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "J. Victor Correa",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
@@ -15,9 +15,7 @@
     "@hapi/joi": "^17.1.1",
     "@hapi/vision": "^6.0.0",
     "hapi-swagger": "^12.1.3",
-    "lodash.clonedeep": "^4.5.0",
-    "mongodb": "^3.5.5",
-    "socket.io": "^2.3.0"
+    "mongodb": "^3.5.5"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

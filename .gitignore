@@ -1,4 +1,9 @@
-backend/node_modules
+rest-service/node_modules
+rest-service/.env
+
+socket-service/node_modules
+socket-service/coverage/
+socket-service/.env
+
 frontend/node_modules
-backend/coverage/
 frontend/.env

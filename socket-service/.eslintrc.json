@@ -1,0 +1,48 @@
+{
+    "env": {
+        "browser": false,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "process": true,
+        "console": true,
+        "setTimeout": true,
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "overrides": [
+        {
+            "files": [
+                "test/**/*.spec.js"
+            ],
+            "rules": {
+                "require-jsdoc": "off",
+                "no-undef": "off",
+                "no-unused-vars": "off"
+            }
+        }
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}

@@ -1,5 +1,5 @@
 
-const roomWrapper = require('./../../../socket-service/room/room');
+const roomWrapper = require('./../../../business/room/room');
 
 describe('room test', () => {
 	it ('should call judge with de p1 and p2', () => {

@@ -7,11 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.config.productionTip = false;
 
-console.log(process.env.VUE_APP_API_HOST);
-
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: process.env.VUE_APP_API_HOST
+  connection: process.env.VUE_APP_SOCKET_HOST
 }));
 
 new Vue({
