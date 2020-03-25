@@ -12,7 +12,7 @@ const { Server } = require('./bin/index');
 
 		const swaggerOptions = {
 			info: {
-				title: 'Concrete - Node.js Challange',
+				title: 'Tic Tac Toe - Rest Service',
 				version: '1.0.0',
 			},
 		};
